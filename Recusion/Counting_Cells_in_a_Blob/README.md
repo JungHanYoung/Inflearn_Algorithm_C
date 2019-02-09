@@ -34,3 +34,58 @@ else
     the result is 1 plus the number of cells in each piece of the blob that includes a nearest neighbour;
 ~~~
 
+### C 코딩
+
+~~~c
+// countCells.c
+
+#include <stdio.h>
+
+#define N 8
+#define IMAGE_COLOR 1
+#define ALREADY_COUNTED 2
+
+int countCells(int x, int y, int grid[][8])
+{
+    // 현재 위치의 픽셀이 grid밖이면..
+    if (x < 0 || x >= N || y < 0 || y >= N)
+        return 0;
+    // 이미지 픽셀이 아니면...
+    else if (grid[x][y] != IMAGE_COLOR)
+        return 0;
+    else
+    {
+        grid[x][y] = ALREADY_COUNTED;
+        return 1 + countCells(x - 1, y - 1, grid) + countCells(x, y - 1, grid) + countCells(x + 1, y - 1, grid) + countCells(x - 1, y, grid) + countCells(x, y, grid) + countCells(x + 1, y, grid) + countCells(x - 1, y + 1, grid) + countCells(x, y + 1, grid) + countCells(x + 1, y + 1, grid);
+    }
+}
+
+// main.c
+#include <stdio.h>
+#include "countCells.h"
+
+int main(void)
+{
+
+    int grid[][8] = {
+        {1, 0, 0, 0, 0, 0, 0, 1},
+        {0, 1, 1, 0, 0, 1, 0, 0},
+        {1, 1, 0, 0, 1, 0, 1, 0},
+        {0, 0, 0, 0, 0, 1, 0, 0},
+        {0, 1, 0, 1, 0, 1, 0, 0},
+        {0, 1, 0, 1, 0, 1, 0, 0},
+        {1, 0, 0, 0, 1, 0, 0, 1},
+        {0, 1, 1, 0, 0, 1, 1, 1}};
+    int result;
+    result = countCells(5, 3, grid);
+    printf("result: %d", result);
+
+    return 0;
+}
+~~~
+
+### 실행결과
+
+~~~
+result: 13
+~~~
