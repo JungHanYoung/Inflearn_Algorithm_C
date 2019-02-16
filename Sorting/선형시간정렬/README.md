@@ -56,3 +56,13 @@ data = 2, 5, 3, 0, 2, 3, 0, 3
 ~~~
 
 ## Radix Sort
+
+- n개의 d자리 정수들
+- 가장 낮은 자릿부터 정렬
+- stable sort가 가능. (값이 같을때 먼저나온 데이터가 정렬된다.)
+
+~~~
+RADIX_SORT(A, d) // A: array, d: 자릿 수
+for i <- 1 to d
+    do use a stable sort to sort array A on digit i
+~~~
